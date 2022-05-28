@@ -3,6 +3,7 @@ package appiumtests;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import io.appium.java_client.android.AndroidDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -23,7 +24,7 @@ public class CalculatorTest {
 		cap.setCapability("appPackage", "com.oneplus.calculator");
 		cap.setCapability("appActivity", "com.oneplus.calculator.Calculator");
 		URL url = new URL("http://127.0.0.1:4723/wd/hub");
-		driver = new AppiumDriver(url,cap);
+		driver = new AndroidDriver(url,cap);
 		System.out.println("Started..");
 		WebElement two = driver.findElement(By.id("com.oneplus.calculator:id/digit_2"));
 		WebElement plus = driver.findElement(By.id("com.oneplus.calculator:id/op_add"));

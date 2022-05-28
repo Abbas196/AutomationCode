@@ -1,0 +1,4 @@
+AppiumTests/linkdln/SessionsBefore.java
+ AppiumTests.linkdln.SessionsBefore
+AppiumTests/Calculator/CalculatorApp.java
+ AppiumTests.Calculator.CalculatorApp
