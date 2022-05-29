@@ -5,8 +5,12 @@ import io.appium.java_client.android.AndroidDriver;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -25,7 +29,6 @@ public class SessionsBefore {
         dc.setCapability("automationName","UiAutomator2");
         dc.setCapability("app",APP);
         driver = new AndroidDriver(new URL(APPIUM),dc);
-        try{Thread.sleep(3000);}catch (Exception e){}
     }
 
     @After
@@ -35,7 +38,19 @@ public class SessionsBefore {
 
     @Test
     public void test(){
-        WebElement element = driver.findElement(MobileBy.AccessibilityId("Login Screen"));
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        WebElement screen = wait.until(ExpectedConditions.presenceOfElementLocated(MobileBy.AccessibilityId("Login Screen")));
+        screen.click();
+        WebElement username = wait.until(ExpectedConditions.presenceOfElementLocated(MobileBy.AccessibilityId("username")));
+        username.sendKeys("alice");
+        WebElement password = driver.findElement(MobileBy.AccessibilityId("password"));
+        password.sendKeys("mypassword");
+        WebElement login = driver.findElement(MobileBy.AccessibilityId("loginBtn"));
+        login.click();
+        WebElement loginText = wait.until(
+                ExpectedConditions.
+                        presenceOfElementLocated(By.xpath("//android.widget.TextView[contains(@text,'You are logged in')]")));
+        assert(loginText.getText().contains("alice"));
     }
 
 }
